@@ -1,6 +1,9 @@
+using AutoDockTestApp.Context;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -9,6 +12,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AutoDockTestApp
@@ -27,10 +31,17 @@ namespace AutoDockTestApp
         {
 
             services.AddControllers();
+            services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddDbContext<ApplicationContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection"),
+                    b => b.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AutoDockTestApp", Version = "v1" });
             });
+
+            services.AddScoped<IApplicationContext>(provider => provider.GetService<ApplicationContext>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

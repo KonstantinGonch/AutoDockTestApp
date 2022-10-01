@@ -6,25 +6,25 @@ using System.Threading.Tasks;
 namespace AutoDockTestApp.Models
 {
     /// <summary>
-    /// Задача
+    /// Файл, прикрепленный к задаче
     /// </summary>
-    public class TodoItem
+    public class TodoItemFileAttachment
     {
         /// <summary>
         /// Идентификатор
         /// </summary>
         public long Id { get; set; }
         /// <summary>
-        /// Наименование
+        /// Полное имя файла
         /// </summary>
-        public string Title { get; set; }
+        public string FileName { get; set; }
         /// <summary>
-        /// Дата
+        /// Id задачи
         /// </summary>
-        public DateTime CreationDate { get; set; }
+        public long TodoItemId { get; set; }
         /// <summary>
-        /// Статус
+        /// Задача
         /// </summary>
-        public TodoStatus Status { get; set; }
+        public TodoItem TodoItem { get; set; }
     }
 }
