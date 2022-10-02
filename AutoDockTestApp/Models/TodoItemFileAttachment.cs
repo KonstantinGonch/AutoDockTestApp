@@ -19,6 +19,10 @@ namespace AutoDockTestApp.Models
         /// </summary>
         public string FileName { get; set; }
         /// <summary>
+        /// Короткое имя
+        /// </summary>
+        public string DisplayName { get; set; }
+        /// <summary>
         /// Id задачи
         /// </summary>
         public long TodoItemId { get; set; }

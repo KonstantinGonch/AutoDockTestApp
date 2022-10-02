@@ -13,6 +13,7 @@ namespace AutoDockTestApp.Controllers
     /// Действия с задачами
     /// </summary>
     [Route("api/todoItem")]
+    [ApiController]
     public class TodoItemController : ControllerBase
     {
         private IMediator _mediator;
@@ -26,36 +27,56 @@ namespace AutoDockTestApp.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [Route("add")]
         [HttpPost]
+        [Route("add")]
         public async Task<IActionResult> Create(CreateTodoItemCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
 
-        [Route("list")]
+        /// <summary>
+        /// Весь список задач
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
+        [Route("list")]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await _mediator.Send(new GetAllTodoItemsQuery()));
         }
 
-        [Route("get")]
-        [HttpGet("{id}")]
+        /// <summary>
+        /// Описание задачи
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("get/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             return Ok(await _mediator.Send(new GetTodoItemByIdQuery { Id = id }));
         }
 
-        [Route("delete")]
-        [HttpDelete("{id}")]
+        /// <summary>
+        /// Удалить задачу
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             return Ok(await _mediator.Send(new DeleteTodoItemByIdCommand { Id = id }));
         }
 
-        [Route("update")]
-        [HttpPut("{id}")]
+        /// <summary>
+        /// Обновить данные о задаче
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("update/{id}")]
         public async Task<IActionResult> Update(int id, UpdateTodoItemCommand command)
         {
             return Ok(await _mediator.Send(command));

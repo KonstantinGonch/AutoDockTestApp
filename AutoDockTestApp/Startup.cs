@@ -1,4 +1,5 @@
 using AutoDockTestApp.Context;
+using AutoDockTestApp.Util;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -42,6 +43,7 @@ namespace AutoDockTestApp
             });
 
             services.AddScoped<IApplicationContext>(provider => provider.GetService<ApplicationContext>());
+            services.AddScoped<IAttachmentManager, AttachmentManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
