@@ -19,5 +19,18 @@ namespace AutoDockTestApp.Context
         {
             return await base.SaveChangesAsync();
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TodoItem>().HasData(
+                new TodoItem
+                {
+                    Id = 2,
+                    Title = "Составить и отправить СЗВ-М",
+                    Status = TodoStatus.InProgress,
+                    CreationDate = DateTime.Now
+                }
+            );
+        }
     }
 }

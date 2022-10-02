@@ -26,5 +26,9 @@ namespace AutoDockTestApp.Models
         /// Статус
         /// </summary>
         public TodoStatus Status { get; set; }
+        /// <summary>
+        /// Прикрепленные файлы
+        /// </summary>
+        public IEnumerable<TodoItemFileAttachment> Attachments { get; set; }
     }
 }
