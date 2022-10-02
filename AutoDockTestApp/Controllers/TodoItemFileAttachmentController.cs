@@ -15,7 +15,7 @@ namespace AutoDockTestApp.Controllers
     /// </summary>
     [ApiController]
     [Route("api/attachments")]
-    public class TodoItemFileAttachmentController : ControllerBase
+    public class TodoItemFileAttachmentController : BaseApiController
     {
         private IMediator _mediator;
         public TodoItemFileAttachmentController(IMediator mediator)
@@ -30,7 +30,8 @@ namespace AutoDockTestApp.Controllers
         [Route("list/{todoItemId}")]
         public async Task<IActionResult> GetTodoItemAttachments(long todoItemId)
         {
-            return Ok(await _mediator.Send(new GetTodoItemFileAttachmentQuery { TodoItemId = todoItemId }));
+            var result = await _mediator.Send(new GetTodoItemFileAttachmentQuery { TodoItemId = todoItemId });
+            return Ok(CreateSuccessResponse(result));
         }
 
         /// <summary>
@@ -40,7 +41,8 @@ namespace AutoDockTestApp.Controllers
         [Route("attach")]
         public async Task<IActionResult> AttachFileToTodoItem(long todoItemId, string displayName, IFormFile fileData)
         {
-            return Ok(await _mediator.Send(new AttachFileToTodoItemCommand { TaskId = todoItemId, FileData = fileData , DisplayName = displayName}));
+            var result = await _mediator.Send(new AttachFileToTodoItemCommand { TaskId = todoItemId, FileData = fileData, DisplayName = displayName });
+            return Ok(CreateSuccessResponse(result));
         }
 
         /// <summary>
@@ -50,7 +52,8 @@ namespace AutoDockTestApp.Controllers
         [Route("delete")]
         public async Task<IActionResult> DeleteAttachment(long attachmentId)
         {
-            return Ok(await _mediator.Send(new DeleteTodoItemFileAttachmentCommand { AttachmentId = attachmentId}));
+            var result = await _mediator.Send(new DeleteTodoItemFileAttachmentCommand { AttachmentId = attachmentId });
+            return Ok(CreateSuccessResponse(result));
         }
     }
 }

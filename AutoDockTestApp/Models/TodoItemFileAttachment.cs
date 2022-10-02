@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,6 +22,7 @@ namespace AutoDockTestApp.Models
         /// <summary>
         /// Короткое имя
         /// </summary>
+        [Required(ErrorMessage = "Необходимо заполнить наименование файла")]
         public string DisplayName { get; set; }
         /// <summary>
         /// Id задачи

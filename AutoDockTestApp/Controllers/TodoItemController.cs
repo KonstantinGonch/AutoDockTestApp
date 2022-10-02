@@ -1,4 +1,5 @@
-﻿using AutoDockTestApp.CQRS.Commands;
+﻿using AutoDockTestApp.Common;
+using AutoDockTestApp.CQRS.Commands;
 using AutoDockTestApp.CQRS.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,7 @@ namespace AutoDockTestApp.Controllers
     /// </summary>
     [Route("api/todoItem")]
     [ApiController]
-    public class TodoItemController : ControllerBase
+    public class TodoItemController : BaseApiController
     {
         private IMediator _mediator;
         public TodoItemController(IMediator mediator)
@@ -31,7 +32,8 @@ namespace AutoDockTestApp.Controllers
         [Route("add")]
         public async Task<IActionResult> Create(CreateTodoItemCommand command)
         {
-            return Ok(await _mediator.Send(command));
+            var id = await _mediator.Send(command);
+            return Ok(CreateSuccessResponse(id));
         }
 
         /// <summary>
@@ -42,7 +44,8 @@ namespace AutoDockTestApp.Controllers
         [Route("list")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _mediator.Send(new GetAllTodoItemsQuery()));
+            var items = await _mediator.Send(new GetAllTodoItemsQuery());
+            return Ok(CreateSuccessResponse(items));
         }
 
         /// <summary>
@@ -54,7 +57,8 @@ namespace AutoDockTestApp.Controllers
         [Route("get/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await _mediator.Send(new GetTodoItemByIdQuery { Id = id }));
+            var result = await _mediator.Send(new GetTodoItemByIdQuery { Id = id });
+            return Ok(CreateSuccessResponse(result));
         }
 
         /// <summary>
@@ -66,7 +70,8 @@ namespace AutoDockTestApp.Controllers
         [Route("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            return Ok(await _mediator.Send(new DeleteTodoItemByIdCommand { Id = id }));
+            var result = await _mediator.Send(new DeleteTodoItemByIdCommand { Id = id });
+            return Ok(CreateSuccessResponse(result));
         }
 
         /// <summary>
@@ -79,7 +84,8 @@ namespace AutoDockTestApp.Controllers
         [Route("update/{id}")]
         public async Task<IActionResult> Update(int id, UpdateTodoItemCommand command)
         {
-            return Ok(await _mediator.Send(command));
+            var result = await _mediator.Send(command);
+            return Ok(CreateSuccessResponse(result));
         }
     }
 }

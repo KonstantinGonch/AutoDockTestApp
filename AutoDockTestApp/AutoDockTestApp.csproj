@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ExceptionMiddleware\" />
     <Folder Include="Files\" />
   </ItemGroup>
 
