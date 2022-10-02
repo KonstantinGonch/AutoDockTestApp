@@ -23,8 +23,8 @@ namespace AutoDockTestApp.CQRS.Queries
             }
             public async Task<IEnumerable<TodoItemFileAttachment>> Handle(GetTodoItemFileAttachmentQuery query, CancellationToken cancellationToken)
             {
-                var productList = await _context.FileAttachments.Where(e => e.TodoItemId == query.TodoItemId).ToListAsync();
-                return productList.AsReadOnly();
+                var itemList = await _context.FileAttachments.Where(e => e.TodoItemId == query.TodoItemId).ToListAsync();
+                return itemList.AsReadOnly();
             }
         }
     }

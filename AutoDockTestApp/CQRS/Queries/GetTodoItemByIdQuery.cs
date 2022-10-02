@@ -21,8 +21,8 @@ namespace AutoDockTestApp.CQRS.Queries
             }
             public async Task<TodoItem> Handle(GetTodoItemByIdQuery query, CancellationToken cancellationToken)
             {
-                var product = _context.Tasks.FirstOrDefault(a => a.Id == query.Id);
-                return product;
+                var item = await _context.Tasks.FindAsync(query.Id);
+                return item;
             }
         }
     }
