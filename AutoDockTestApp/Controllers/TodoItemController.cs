@@ -41,10 +41,10 @@ namespace AutoDockTestApp.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("list")]
-        public async Task<IActionResult> GetAll()
+        [Route("list/{pageNumber}")]
+        public async Task<IActionResult> GetAll(int? pageNumber)
         {
-            var items = await _mediator.Send(new GetAllTodoItemsQuery());
+            var items = await _mediator.Send(new GetAllTodoItemsQuery { PageNumber = pageNumber });
             return Ok(CreateSuccessResponse(items));
         }
 
